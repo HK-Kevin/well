@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Dynamic Analysis</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="icon" href="icon.png" type="image/x-icon"/>
+    <style>
+        body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .navbar-default {
+            margin-bottom: 0;
+            color: #6f5499;
+        }
+
+        .main-page {
+            position: relative;
+            width: 100%;
+            display: block;
+            text-align: center;
+            padding: 80px 0;
+            background-color: /*#6f5499*/ rgb(69, 161, 189);
+        }
+
+        .bs-docs-booticon {
+            margin: 0 auto 30px;
+        }
+
+        .bs-docs-booticon-outline {
+            background-color: transparent;
+            border: 1px solid #cdbfe3;
+        }
+
+        .bs-docs-booticon-lg {
+            width: 150px;
+            height: 150px;
+            font-size: 100px;
+            line-height: 140px;
+        }
+
+        .bs-docs-booticon {
+            display: block;
+            font-weight: 500;
+            color: #fff;
+            text-align: center;
+            cursor: default;
+            background-color: /*#563d7c*/ rgb(69, 161, 180);
+            border-radius: 15%;
+        }
+
+        .lead {
+            margin: 0 auto;
+            width: 80%;
+            font-size: 30px;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            user-select: none;
+            background-image: none;
+            border: 1px solid #cdbfe3;
+            white-space: nowrap;
+            vertical-align: middle;
+            font-size: 20px;
+            padding: 15px 30px;
+            color: #fff;
+            background-color: transparent;
+            line-height: 1.33;
+            border-radius: 6px;
+            touch-action: manipulation;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #fff;
+            color: #6f5499;
+        }
+
+    </style>
+</head>
+<body>
+<nav>
+    <div class="navbar navbar-default " role="navigation">
+        <div class="navbar-header col-md-6  col-md-offset-1  ">
+            <img src="icon.png" class="navbar-header" style="width:50px;height: 50px; " alt="">
+
+            <a href="" class="navbar-brand">
+                Dynamic Analysis</a>
+        </div>
+        <ul class="navbar-nav nav col-md-5">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="oil.html">Oilfield Analysis</a></li>
+            <li><a href="excel.html">Well analysis</a></li>
+            <li><a href="excel.html">About Us</a></li>
+        </ul>
+    </div>
+</nav>
+<main class="main-page" role="main">
+    <div class="container">
+        <span class="bs-docs-booticon bs-docs-booticon-lg  bs-docs-booticon-outline">DA</span>
+        <p class="lead">Dynamic Analysis是一款油藏生产动态分析软件，用于油藏、单井生产数据分析及数据可视化处理,。</p>
+        <p class="lead">
+            <a href="" class="btn btn-outline-inverse btn-lg">开始处理</a>
+        </p>
+        <p class="version">当前版本： v1.0.0 | 文档更新于：期待ing</p>
+    </div>
+
+</main>
+
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="height:400px;width: 800px" class="container"></div>
+<!-- Split button -->
+<div class="btn-group">
+</div>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

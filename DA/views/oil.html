@@ -1,0 +1,85 @@
+<%- include include/header.html%>
+    <style>
+        #main{
+            position: absolute;
+            top: 60px;
+            left: 450px;
+        }
+        .table-bordered {
+            width: 300px;
+        }
+
+    </style>
+<!--main-->
+<main class="clearfix container">
+    <div class="list-group col-lg-4 list-group-sm" style="margin-top: 30px ;width: 200px">
+        <a href="/oil" class="list-group-item">油藏动态</a>
+        <a href="/well" class="list-group-item">单井动态</a>
+    </div>
+    <!--tab-->
+    <div class="table-con">
+        <table class="table table-bordered table-hover .table-condensed table-striped ">
+            <caption class="h4">###生产数据汇总</caption>
+            <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">项目</th>
+                <th class="text-center">数据</th>
+            </tr>
+            </thead>
+            <tbody class="text-center ">
+            <tr>
+                <td>1</td>
+                <td>累产油</td>
+                <td><%=basicData.allOil%></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>累产水</td>
+                <td><%=basicData.allWater%></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>综合含水率</td>
+                <td><%=basicData.waterCut%></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>平均月产油</td>
+                <td><%=basicData.oilM%></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>平均月产水</td>
+                <td><%=basicData.waterM%></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>生产井数</td>
+                <td>313</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>高含水井</td>
+                <td>1000</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>生产天数</td>
+                <td><%=basicData.allDay%></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>区块</td>
+                <td><%=basicData.block%></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--echarts-->
+    <div id="main" style="height:400px;width: 800px"></div>
+    <div id="main1" style="height:600px;width: 100%"></div>
+
+</main>
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<%- include include/footer.html%>

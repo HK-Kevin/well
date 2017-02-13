@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title><%=title%></title>
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap/dist/css/animate.css">
+    <link rel="icon" href="icon.png" type="image/x-icon"/>
+    <script src="/jquery/dist/jquery.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.js"></script>
+    <style>
+        body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-size:18px ;
+        }
+        .navbar-default {
+            margin-bottom: 0;
+            color: #6f5499;
+        }
+        .alertBox{
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .on{
+            background: rgba(0,0,0,0.1);
+            color: #fff;
+            transition: 0.7s ease-in-out;
+        }
+        .color{
+           color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+<nav>
+    <div class="navbar navbar-default " role="navigation">
+        <div class="navbar-header col-md-7  col-md-offset-1  ">
+            <img src="icon.png" class="navbar-header" style="width:50px;height: 50px; " alt="123">
+
+            <a href="/home" style="font-size: 18px" class="navbar-brand">
+                Dynamic Analysis</a>
+        </div>
+        <ul class="navbar-nav nav col-md-4">
+            <li><a href="/home">Home</a></li>
+            <!--<%if(user){%>
+            <li><a href="/oil">Oilfield Analysis</a></li>
+            <li><a href="/well">Well analysis</a></li>
+            <%}else{%>
+            <%}%>-->
+            <li><a href="/aboutus">About Us</a></li>
+            <%if(user){%>
+            <li><a href="/program">我的项目</a></li>
+            <li><a href="/logout">退出</a></li>
+            <%}else{%>
+            <li><a href="/reg">注册</a></li>
+            <li><a href="/login">登入</a></li>
+            <%}%>
+             <li>
+                 <div class="alertBox">
+                 <%if(success){%>
+                 <div class="alert " style=""><%=success%></div>
+                 <%}%>
+                 <%if(error){%>
+                 <div class="alert "><%=error%></div>
+                 <%}%>
+             </div>
+             </li>
+        </ul>
+    </div>
+</nav>

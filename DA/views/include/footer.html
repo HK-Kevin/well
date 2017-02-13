@@ -1,0 +1,15 @@
+<script>
+    let url = window.location.href;
+    $('.navbar-nav').find('a').each(function (index, item) {
+        let aUrl = item.href;
+        if (aUrl == url) {
+            console.log(item);
+            $(item).parents('li').addClass('on');
+            $(item).parents('li').addClass('color');
+            $(item).addClass('color');
+            console.log(item.className);
+        }
+    })
+</script>
+</body>
+</html>

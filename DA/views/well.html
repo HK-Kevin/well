@@ -1,0 +1,288 @@
+<%- include include/header.html%>
+<div class="container text-center">
+    <div class="list-group col-lg-4 list-group-sm" style="margin-top: 30px ;width: 200px">
+        <a href="/oil" class="list-group-item">油藏动态</a>
+        <a href="/well" class="list-group-item">单井动态</a>
+    </div>
+    <div id="main" style="height:400px;width: 800px" class="col-md-8"></div>
+
+    <div class="btn-group">
+    </div>
+</div>
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script type="text/javascript">
+    let data = null;
+    let obj = {};
+    let arrWellName = [];
+    var well = "";
+    // 配置echarts
+    function echarts() {
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        require(
+                [
+                    'echarts',
+                    'echarts/chart/bar',
+                    'echarts/chart/line',
+
+                    // 使用柱状图就加载bar模块，按需加载
+                ],
+                function (ec) {
+                    // 获取JSON数据
+                    // 基于准备好的dom，初始化echarts图表
+                    var myChart = ec.init(document.getElementById('main'));
+                    var option = {
+                        backgroundColor: 'rgba(244,245,0,0)',
+                        title: {
+                            text: `${well}井动态曲线`,
+                            subtext: ''
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        //legend 图例
+                        legend: {
+                            data: ['产油量', '产水量', '含水率'],
+                            x: 'center', //定义图例的位置
+                            y: '43px'
+                        },
+                        toolbox: {
+                            show: true,
+                            feature: {
+                                mark: {show: true},
+                                dataZoom: {show: true},//鼠标放缩
+                                dataView: {show: true, readOnly: false},
+                                magicType: {show: true, type: ['line', 'bar', 'tiled']},
+                                restore: {show: true},
+                                saveAsImage: {show: true}
+                            }
+                        },
+                        dataZoom: {
+                            show: true,
+                            realtime: true,
+                            start: 0,
+                            end: 100
+                        },
+                        calculable: true,
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: getOilDate(well).arrData
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                name: '采油量(m^3/M)',
+                                type: 'value'
+                            },
+                            /*{
+                             name: '产水量',
+                             type: 'value',
+                             },*/
+                            {
+                                name: '含水率(%)',
+                                type: 'value',
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '产油量',
+                                type: 'line',
+                                data: getOilDate(well).arrOilPro,
+                                smooth: true,//曲线平滑
+                                symbol: 'none',//曲线的端点样式
+                                itemStyle: {      //设定曲线颜色
+                                    normal: {
+                                        lineStyle: {
+                                            color: 'red'
+                                        }
+                                    }
+                                },
+                                areaStyle: {   //设置区域颜色
+                                    normal: {
+                                        offset: 0,
+                                        color: 'rgb(255, 158, 68)'
+                                    },
+                                    /*new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                     {
+                                     offset: 0,
+                                     color:'rgb(255, 158, 68)' }
+                                     offset: 0,
+                                     color: 'rgb(255, 158, 68)'
+                                     }, {
+                                     offset: 1,
+                                     color: 'rgb(255, 70, 131)'
+                                     }])
+                                     }*/
+                                }
+                                /*markPoint: {
+                                 data: [
+                                 {type: 'max', name: '最大值'},
+                                 {type: 'min', name: '最小值'}
+                                 ]
+                                 },
+                                 markLine: {
+                                 data: [
+                                 {type: 'average', name: '平均值'}
+                                 ]
+                                 }*/
+                            },
+                            {
+                                name: '产水量',
+                                type: 'line',
+                                smooth: true,//曲线平滑
+                                data: getOilDate(well).arrWaterPro,
+                                itemStyle: {      //设定曲线颜色
+                                    normal: {
+                                        lineStyle: {
+                                            color: 'blue'
+                                        }
+                                    }
+                                }
+                                /*markPoint: {
+                                 data: [
+                                 {name: '年最高', value: 182.2, xAxis: 7, yAxis: 183, symbolSize: 18},
+                                 {name: '年最低', value: 2.3, xAxis: 11, yAxis: 3}
+                                 ]
+                                 },
+                                 markPoint: {
+                                 data: [
+                                 {type: 'max', name: '最大值'},
+                                 {type: 'min', name: '最小值'}
+                                 ]
+                                 },
+                                 markLine: {
+                                 data: [
+                                 {type: 'average', name: '平均值'}
+                                 ]
+                                 }*/
+                            },
+                            {
+                                name: '含水率',
+                                type: 'line',
+                                smooth: true,//曲线平滑
+                                yAxisIndex: 1,
+                                data: getOilDate(well).arrWaterRatio,
+//                                position: 'right', //纵坐标位置
+                                /*itemStyle:{      //设定曲线颜色
+                                 normal:{
+                                 lineStyle:{
+                                 color:'green'
+                                 }
+                                 }
+                                 }*/
+                                /*markPoint: {
+                                 data: [
+                                 {name: '年最高', value: 182.2, xAxis: 7, yAxis: 183, symbolSize: 18},
+                                 {name: '年最低', value: 2.3, xAxis: 11, yAxis: 3}
+                                 ]
+                                 },
+                                 markPoint: {
+                                 data: [
+                                 {type: 'max', name: '最大值'},
+                                 {type: 'min', name: '最小值'}
+                                 ]
+                                 },
+                                 markLine: {
+                                 data: [
+                                 {type: 'average', name: '平均值'}
+                                 ]
+                                 }*/
+                            }
+                        ]
+                    };
+
+                    // 为echarts对象加载数据
+                    myChart.setOption(option);
+                }
+        );
+    }
+    //插入井号
+    function insertWell() {
+        var str = '';
+        arrWellName.forEach(function (item) {
+            str += `<button class="btn btn-default">${item}</button>
+`
+        });
+        document.querySelector('.btn-group').innerHTML = str;
+    }
+    //获取解析出的数据,并已对象形式返回
+    function getOilDate(wellName) {
+        var arrData = [];
+        var arrOilPro = [];
+        var arrWaterPro = [];
+        var arrWaterRatio = [];
+        for (var val in obj) {
+            if (wellName == val) {
+                obj[val].forEach(function (item) {
+                    arrData.push(item[0]);
+                    arrOilPro.push(item[1]);
+                    arrWaterPro.push(item[2]);
+                    arrWaterRatio.push(item[3]);
+                    /*arrOilPro.push(item[1]);
+                     arrWaterPro.push(item[2]);*/
+                })
+            }
+        }
+        return {arrData, arrOilPro, arrWaterPro, arrWaterRatio};
+    }
+    //请求JSON数据
+    function ajax() {
+        let xhr = new XMLHttpRequest;
+        xhr.open('POST', '/well', false);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                data = JSON.parse(xhr.responseText);
+                console.log(data);
+            }
+        };
+        xhr.send();
+    }
+    //格式化数据
+    function formatData(data) {
+        for (let i = 0; i < data.length; i++) {
+            arrWellName.push(data[i]["井号"])
+        }
+        arrWellName = new Set(arrWellName);
+        arrWellName = Array.from(arrWellName);
+        obj[arrWellName[0]] = [];
+        obj[arrWellName[1]] = [];
+        obj[arrWellName[2]] = [];
+        obj[arrWellName[3]] = [];
+        for (var i = 0; i < data.length; i++) {
+            var cur = data[i]["井号"];
+            for (var j = 0; j < arrWellName.length; j++) {
+                if (cur == arrWellName[j]) {
+                    var arrTmp = [];
+                    arrTmp.push(data[i]["年月"]);
+                    arrTmp.push(data[i]["月产油量"]);
+                    arrTmp.push(data[i]["月产水量"]);
+                    arrTmp.push(data[i]["含水"]);
+                    obj[arrWellName[j]].push(arrTmp)
+                }
+
+            }
+        }
+    }
+
+    //请求数据
+    ajax();
+    //format data
+    formatData(data);
+    //插入井号
+    insertWell();
+    var aLi = document.getElementsByClassName('btn');
+    for (let i = 0; i < aLi.length; i++) {
+        aLi[i].addEventListener('click', function () {
+            well = arrWellName[i];
+            echarts()
+        })
+    }
+    echarts();
+    // 路径配置
+
+</script>
+<%- include include/footer.html%>
