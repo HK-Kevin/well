@@ -21,7 +21,7 @@ server.engine('html',require('ejs').__express);
 
 server.use(bodyParse.urlencoded({extended: true}));
 //session可以跨请求保持会话
-server.use(session({   //放在11111处请求静态资源时不用,浪费资源,放在22222处路由执行完毕,更不行
+server.use(session({
         secret: 'hk',//用来加密cookie
         resave: true,//每次客户请求都要重新保存session
         saveUninitialized: true,//保存为初始化的session
@@ -42,9 +42,9 @@ server.use(function (req, res, next) {
 
 server.use('/', user);       // /home 首页   /user/login 登入   /user/reg 注册
 server.use('/', home);       // /home 首页   /user/login 登入   /user/reg 注册
-server.use('/', oil);         //
-server.use('/', well);       // /article/add 增加文章
-server.use('/', aboutus); // /article/add 增加文章
-server.use('/', program); // /article/add 增加文章
+server.use('/', oil);
+server.use('/', well);
+server.use('/', aboutus);
+server.use('/', program);
 
 server.listen(9090);

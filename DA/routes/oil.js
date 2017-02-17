@@ -22,9 +22,8 @@ route.get('/oil/:_id', function (req, res) {
     let data =[];
     //_id:_id
     Program.findOne({_id:_id}, function (err, result) {
-
+        //console.log(result);
          data = JSON.parse(result['programFile']);
-        console.log(result['programFile']);
         //获取所有的井名
         for (let i = 0; i <= data.length - 1; i++) {
             wellName.push(data[i]["井号"]);
@@ -68,6 +67,7 @@ route.get('/oil/:_id', function (req, res) {
         waterM = (allWater / data.length).toFixed(2);
 
         let basicData = {
+            _id:_id,
             block: data[1]['区块'],
             allDay,
             allOil,

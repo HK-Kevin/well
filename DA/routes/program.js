@@ -35,7 +35,12 @@ route.get('/date', function (req, res) {
         sheet: "采油"
     }, function (err, result) {
        fs.readFile(contentName + '.json','utf8',function (err,data) {
+           fs.unlink(contentName,function () {});
            Program.create({programName:contentName,programFile:data,user:req.session.user._id}, function (err, data) {
+
+               fs.unlink(contentName + '.json',function () {
+
+               })
            });//将生产数据入到数据库中
        })
 
@@ -46,8 +51,8 @@ route.get('/date', function (req, res) {
 route.get('/program/:_id',function (req,res) {
     let _id = req.params._id;
     console.log(_id);
-    console.log(123);
     Program.findById(_id,function (err,data) {
+        console.log(data._id);
         res.render('program/programDetail',{title:'项目详情',data})
     })
 

@@ -4,13 +4,22 @@ let mongoose = require('mongoose');//引入数据库
 let Program = require('../model').Program;
 //创建一个路由中间件   是一个容器  下面可以放置很多路由规则
 let route = express.Router();
-route.get('/well', function (req, res) {
-    res.render('well',{title:'well'})
-});
+/*route.get('/well', function (req, res) {
+    let result = {};
+    res.render('well',{title:'well',result})
+});*/
 
-route.post('/well', function (req, res) {
-    Program.find({user:req.session.user},function (err,result) {
-        res.send(result[0].programFile);
+route.get('/well/:_id', function (req, res) {
+    //console.log(req.url);
+    let _id = req.params._id;
+    Program.findOne({_id:_id},function (err,result) {
+        res.render('well',{title:'well',result})
+    });
+});
+route.post('/well123/:id', function (req, res) {
+    let _id = req.params.id;
+    Program.findOne({_id:_id},function (err,result) {
+        res.send(result.programFile)
     });
 });
 

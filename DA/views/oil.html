@@ -10,11 +10,11 @@
         }
 
     </style>
-<!--main-->
-<main class="clearfix container">
+<main class="container">
+    <div class="container text-center">
     <div class="list-group col-lg-4 list-group-sm" style="margin-top: 30px ;width: 200px">
-        <a href="/oil" class="list-group-item">油藏动态</a>
-        <a href="/well" class="list-group-item">单井动态</a>
+        <a href="/oil/<%=basicData._id%>" class="list-group-item">油藏动态</a>
+        <a href="/well/<%=basicData._id%>" class="list-group-item">单井动态</a>
     </div>
     <!--tab-->
     <div class="table-con">
@@ -79,7 +79,7 @@
     <!--echarts-->
     <div id="main" style="height:400px;width: 800px"></div>
     <div id="main1" style="height:600px;width: 100%"></div>
-
+    </div>
 </main>
 <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
 <%- include include/footer.html%>
